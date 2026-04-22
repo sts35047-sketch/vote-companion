@@ -31,7 +31,7 @@ export function Layout({ children }: { children: ReactNode }) {
               <span className="gradient-text-primary">First Vote</span>
             </NavLink>
             <ul className="flex items-center gap-1">
-              {NAV.map(({ to, label, icon: Icon }) => (
+              {NAV.map(({ to, labelKey, icon: Icon }) => (
                 <li key={to}>
                   <NavLink
                     to={to}
@@ -44,7 +44,7 @@ export function Layout({ children }: { children: ReactNode }) {
                       }`
                     }
                   >
-                    <Icon size={16} /> {label}
+                    <Icon size={16} /> {t(labelKey)}
                   </NavLink>
                 </li>
               ))}
@@ -100,7 +100,7 @@ export function Layout({ children }: { children: ReactNode }) {
       {/* Bottom nav — mobile */}
       <nav className="md:hidden fixed bottom-0 inset-x-0 z-40 px-3 safe-bottom">
         <ul className="glass-strong rounded-2xl mx-auto max-w-md flex items-center justify-around p-2">
-          {NAV.map(({ to, label, icon: Icon }) => (
+          {NAV.map(({ to, labelKey, icon: Icon }) => (
             <li key={to} className="flex-1">
               <NavLink
                 to={to}
@@ -114,7 +114,7 @@ export function Layout({ children }: { children: ReactNode }) {
                 }
               >
                 <Icon size={20} />
-                {label}
+                {t(labelKey)}
               </NavLink>
             </li>
           ))}
