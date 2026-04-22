@@ -43,8 +43,6 @@ export default function Index() {
     <div className="relative">
       {/* Hero */}
       <section className="relative min-h-[calc(100vh-7rem)] md:min-h-[calc(100vh-5rem)] flex items-center">
-        <FloatingParticles count={18} />
-
         {/* Parallax depth blobs */}
         <div aria-hidden className="absolute inset-0 -z-10">
           <div className="absolute -top-20 -left-10 h-72 w-72 rounded-full bg-gradient-accent blur-3xl opacity-30 float-y-slow" />
