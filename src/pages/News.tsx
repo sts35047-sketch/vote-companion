@@ -258,9 +258,13 @@ export default function News() {
       ) : articles.length === 0 ? (
         <div className="glass rounded-3xl p-10 text-center">
           <Newspaper className="mx-auto mb-3 text-muted-foreground" size={32} />
-          <p className="font-semibold mb-1">{t("No news right now")}</p>
+          <p className="font-semibold mb-1">
+            {offline ? t("You're offline") : t("No news right now")}
+          </p>
           <p className="text-sm text-muted-foreground">
-            {t("Try a different category or check back soon.")}
+            {offline
+              ? t("No saved headlines yet. Reconnect to load the latest news.")
+              : t("Try a different category or check back soon.")}
           </p>
         </div>
       ) : (
