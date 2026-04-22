@@ -200,7 +200,7 @@ export default function News() {
     description: "Live updates on elections, polls and voting from across the world.",
   });
   const [category, setCategory] = useState("all");
-  const { articles, loading, refreshing, reload } = useNews(category);
+  const { articles, loading, refreshing, offline, reload } = useNews(category);
 
   return (
     <div className="container py-8 md:py-12">
