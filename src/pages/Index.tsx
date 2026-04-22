@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight, ChevronDown, CalendarCheck2, Landmark, CheckCircle2, Sparkles } from "lucide-react";
-import { FloatingParticles } from "@/components/FloatingParticles";
+
 import { useSEO } from "@/hooks/useSEO";
 import { NewsStrip } from "@/components/NewsStrip";
 import { T } from "@/i18n/T";
@@ -43,8 +43,6 @@ export default function Index() {
     <div className="relative">
       {/* Hero */}
       <section className="relative min-h-[calc(100vh-7rem)] md:min-h-[calc(100vh-5rem)] flex items-center">
-        <FloatingParticles count={18} />
-
         {/* Parallax depth blobs */}
         <div aria-hidden className="absolute inset-0 -z-10">
           <div className="absolute -top-20 -left-10 h-72 w-72 rounded-full bg-gradient-accent blur-3xl opacity-30 float-y-slow" />
