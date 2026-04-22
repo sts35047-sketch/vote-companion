@@ -14,6 +14,33 @@ export type Database = {
   }
   public: {
     Tables: {
+      booth_searches: {
+        Row: {
+          id: number
+          latitude: number | null
+          longitude: number | null
+          pincode: string | null
+          results: Json | null
+          searched_at: string
+        }
+        Insert: {
+          id?: number
+          latitude?: number | null
+          longitude?: number | null
+          pincode?: string | null
+          results?: Json | null
+          searched_at?: string
+        }
+        Update: {
+          id?: number
+          latitude?: number | null
+          longitude?: number | null
+          pincode?: string | null
+          results?: Json | null
+          searched_at?: string
+        }
+        Relationships: []
+      }
       faqs: {
         Row: {
           answer: string
@@ -38,6 +65,66 @@ export type Database = {
           helpful_count?: number | null
           id?: number
           question?: string
+        }
+        Relationships: []
+      }
+      news_cache: {
+        Row: {
+          category: string | null
+          description: string | null
+          fetched_at: string
+          headline: string | null
+          id: number
+          image_url: string | null
+          published_at: string | null
+          source: string | null
+          url: string | null
+        }
+        Insert: {
+          category?: string | null
+          description?: string | null
+          fetched_at?: string
+          headline?: string | null
+          id?: number
+          image_url?: string | null
+          published_at?: string | null
+          source?: string | null
+          url?: string | null
+        }
+        Update: {
+          category?: string | null
+          description?: string | null
+          fetched_at?: string
+          headline?: string | null
+          id?: number
+          image_url?: string | null
+          published_at?: string | null
+          source?: string | null
+          url?: string | null
+        }
+        Relationships: []
+      }
+      translations_cache: {
+        Row: {
+          created_at: string
+          id: number
+          language: string
+          original: string
+          translated: string
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          language: string
+          original: string
+          translated: string
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          language?: string
+          original?: string
+          translated?: string
         }
         Relationships: []
       }
