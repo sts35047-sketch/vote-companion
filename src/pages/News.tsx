@@ -224,6 +224,15 @@ export default function News() {
         </button>
       </div>
 
+      {offline && articles.length > 0 && (
+        <div className="glass rounded-2xl px-4 py-3 mb-4 text-sm flex items-center gap-2 border border-accent/30">
+          <span className="inline-block h-2 w-2 rounded-full bg-accent animate-pulse" />
+          <span className="text-muted-foreground">
+            {t("You're offline — showing the last saved headlines.")}
+          </span>
+        </div>
+      )}
+
       <div className="flex gap-2 overflow-x-auto pb-3 mb-6 -mx-4 px-4 sm:mx-0 sm:px-0">
         {CATS.map((c) => (
           <button
