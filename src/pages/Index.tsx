@@ -39,6 +39,7 @@ export default function Index() {
   });
 
   return (
+    <T>
     <div className="relative">
       {/* Hero */}
       <section className="relative min-h-[calc(100vh-7rem)] md:min-h-[calc(100vh-5rem)] flex items-center">
@@ -77,10 +78,10 @@ export default function Index() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.25, duration: 0.6 }}
             >
-              <Link to="/journey" className="btn-3d pulse-glow w-full sm:w-auto">
+              <Link to="/journey" onClick={withRipple()} className="btn-3d ripple-host pulse-glow w-full sm:w-auto">
                 Start your journey <ArrowRight size={18} />
               </Link>
-              <Link to="/faq" className="btn-ghost-3d w-full sm:w-auto">
+              <Link to="/faq" onClick={withRipple()} className="btn-ghost-3d ripple-host w-full sm:w-auto">
                 Read the FAQ
               </Link>
             </motion.div>
