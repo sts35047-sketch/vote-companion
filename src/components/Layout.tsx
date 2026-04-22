@@ -1,19 +1,22 @@
 import { ReactNode } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { Home, Map, HelpCircle, Trophy, Sun, Moon, Vote } from "lucide-react";
+import { Home, Map, HelpCircle, Sun, Moon, Vote, Newspaper, MapPin } from "lucide-react";
 import { useTheme } from "@/hooks/useTheme";
 import { motion, AnimatePresence } from "framer-motion";
+import { useT } from "@/i18n/I18nProvider";
 
 const NAV = [
-  { to: "/", label: "Home", icon: Home },
-  { to: "/journey", label: "Journey", icon: Map },
-  { to: "/faq", label: "FAQ", icon: HelpCircle },
-  { to: "/complete", label: "Complete", icon: Trophy },
+  { to: "/", labelKey: "Home", icon: Home },
+  { to: "/journey", labelKey: "Journey", icon: Map },
+  { to: "/booth", labelKey: "Booth", icon: MapPin },
+  { to: "/news", labelKey: "News", icon: Newspaper },
+  { to: "/faq", labelKey: "FAQ", icon: HelpCircle },
 ];
 
 export function Layout({ children }: { children: ReactNode }) {
   const { theme, toggle } = useTheme();
   const location = useLocation();
+  const { t } = useT();
 
   return (
     <div className="min-h-screen flex flex-col">
