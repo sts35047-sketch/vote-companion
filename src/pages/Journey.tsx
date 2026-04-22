@@ -7,6 +7,8 @@ import { useSEO } from "@/hooks/useSEO";
 import { CardSkeleton } from "@/components/Skeleton";
 import { getLocalProgress, setLocalProgress, getSessionId, markCompleted } from "@/lib/session";
 import { toast } from "sonner";
+import { T } from "@/i18n/T";
+import { useT } from "@/i18n/I18nProvider";
 
 interface Step {
   id: number;
@@ -106,6 +108,7 @@ export default function Journey() {
   };
 
   return (
+    <T>
     <div className="container pt-6 md:pt-10">
       {/* Progress */}
       <div className="glass rounded-3xl p-5 md:p-6 mb-6">
@@ -273,5 +276,6 @@ export default function Journey() {
         </section>
       </div>
     </div>
+    </T>
   );
 }

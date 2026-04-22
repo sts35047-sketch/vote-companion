@@ -5,6 +5,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { useSEO } from "@/hooks/useSEO";
 import { CardSkeleton } from "@/components/Skeleton";
 import { toast } from "sonner";
+import { T } from "@/i18n/T";
+import { useT } from "@/i18n/I18nProvider";
 
 interface Faq {
   id: number;
@@ -80,6 +82,7 @@ export default function FAQ() {
   };
 
   return (
+    <T>
     <div className="container pt-6 md:pt-10">
       <motion.header
         initial={{ opacity: 0, y: 18 }}
@@ -201,5 +204,6 @@ export default function FAQ() {
         )}
       </div>
     </div>
+    </T>
   );
 }

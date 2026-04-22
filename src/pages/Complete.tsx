@@ -7,6 +7,7 @@ import { Download, Share2, MessageCircle, Twitter, RefreshCw, Trophy } from "luc
 import { useSEO } from "@/hooks/useSEO";
 import { getElapsedMinutes, isCompleted, markCompleted } from "@/lib/session";
 import { toast } from "sonner";
+import { T } from "@/i18n/T";
 
 export default function Complete() {
   useSEO({
@@ -92,6 +93,7 @@ export default function Complete() {
   };
 
   return (
+    <T>
     <div className="container pt-6 md:pt-10 pb-12">
       <motion.section
         initial={{ opacity: 0, y: 20 }}
@@ -195,5 +197,6 @@ export default function Complete() {
         </div>
       </div>
     </div>
+    </T>
   );
 }

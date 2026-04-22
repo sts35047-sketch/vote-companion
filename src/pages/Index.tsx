@@ -3,6 +3,9 @@ import { motion } from "framer-motion";
 import { ArrowRight, ChevronDown, CalendarCheck2, Landmark, CheckCircle2, Sparkles } from "lucide-react";
 import { FloatingParticles } from "@/components/FloatingParticles";
 import { useSEO } from "@/hooks/useSEO";
+import { NewsStrip } from "@/components/NewsStrip";
+import { T } from "@/i18n/T";
+import { withRipple } from "@/lib/ripple";
 
 const FEATURE_CARDS = [
   {
@@ -36,6 +39,7 @@ export default function Index() {
   });
 
   return (
+    <T>
     <div className="relative">
       {/* Hero */}
       <section className="relative min-h-[calc(100vh-7rem)] md:min-h-[calc(100vh-5rem)] flex items-center">
@@ -74,10 +78,10 @@ export default function Index() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.25, duration: 0.6 }}
             >
-              <Link to="/journey" className="btn-3d pulse-glow w-full sm:w-auto">
+              <Link to="/journey" onClick={withRipple()} className="btn-3d ripple-host pulse-glow w-full sm:w-auto">
                 Start your journey <ArrowRight size={18} />
               </Link>
-              <Link to="/faq" className="btn-ghost-3d w-full sm:w-auto">
+              <Link to="/faq" onClick={withRipple()} className="btn-ghost-3d ripple-host w-full sm:w-auto">
                 Read the FAQ
               </Link>
             </motion.div>
@@ -149,11 +153,15 @@ export default function Index() {
         </div>
 
         <div className="mt-12 flex justify-center">
-          <Link to="/journey" className="btn-3d">
+          <Link to="/journey" onClick={withRipple()} className="btn-3d ripple-host">
             Begin step 1 <ArrowRight size={18} />
           </Link>
         </div>
       </section>
+
+      {/* Live election news strip */}
+      <NewsStrip />
     </div>
+    </T>
   );
 }
