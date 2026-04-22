@@ -3,6 +3,9 @@ import { motion } from "framer-motion";
 import { ArrowRight, ChevronDown, CalendarCheck2, Landmark, CheckCircle2, Sparkles } from "lucide-react";
 import { FloatingParticles } from "@/components/FloatingParticles";
 import { useSEO } from "@/hooks/useSEO";
+import { NewsStrip } from "@/components/NewsStrip";
+import { T } from "@/i18n/T";
+import { withRipple } from "@/lib/ripple";
 
 const FEATURE_CARDS = [
   {
