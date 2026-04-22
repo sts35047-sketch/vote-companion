@@ -5,6 +5,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { useSEO } from "@/hooks/useSEO";
 import { CardSkeleton } from "@/components/Skeleton";
 import { toast } from "sonner";
+import { T } from "@/i18n/T";
+import { useT } from "@/i18n/I18nProvider";
 
 interface Faq {
   id: number;

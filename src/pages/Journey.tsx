@@ -7,6 +7,8 @@ import { useSEO } from "@/hooks/useSEO";
 import { CardSkeleton } from "@/components/Skeleton";
 import { getLocalProgress, setLocalProgress, getSessionId, markCompleted } from "@/lib/session";
 import { toast } from "sonner";
+import { T } from "@/i18n/T";
+import { useT } from "@/i18n/I18nProvider";
 
 interface Step {
   id: number;

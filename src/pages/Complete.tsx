@@ -7,6 +7,7 @@ import { Download, Share2, MessageCircle, Twitter, RefreshCw, Trophy } from "luc
 import { useSEO } from "@/hooks/useSEO";
 import { getElapsedMinutes, isCompleted, markCompleted } from "@/lib/session";
 import { toast } from "sonner";
+import { T } from "@/i18n/T";
 
 export default function Complete() {
   useSEO({
