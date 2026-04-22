@@ -108,6 +108,7 @@ export default function Journey() {
   };
 
   return (
+    <T>
     <div className="container pt-6 md:pt-10">
       {/* Progress */}
       <div className="glass rounded-3xl p-5 md:p-6 mb-6">
@@ -275,5 +276,6 @@ export default function Journey() {
         </section>
       </div>
     </div>
+    </T>
   );
 }

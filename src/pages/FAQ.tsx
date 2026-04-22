@@ -82,6 +82,7 @@ export default function FAQ() {
   };
 
   return (
+    <T>
     <div className="container pt-6 md:pt-10">
       <motion.header
         initial={{ opacity: 0, y: 18 }}
@@ -203,5 +204,6 @@ export default function FAQ() {
         )}
       </div>
     </div>
+    </T>
   );
 }

@@ -93,6 +93,7 @@ export default function Complete() {
   };
 
   return (
+    <T>
     <div className="container pt-6 md:pt-10 pb-12">
       <motion.section
         initial={{ opacity: 0, y: 20 }}
@@ -196,5 +197,6 @@ export default function Complete() {
         </div>
       </div>
     </div>
+    </T>
   );
 }
