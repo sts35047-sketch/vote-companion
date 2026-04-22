@@ -22,10 +22,35 @@ const CATS = [
   { key: "factcheck", label: "Fact Check" },
 ];
 
+const OFFLINE_CACHE_KEY = (cat: string) => `news_cache_${cat}`;
+
+async function loadFromSupabaseCache(category: string): Promise<Article[]> {
+  let query = supabase
+    .from("news_cache")
+    .select("id, headline, description, source, url, image_url, published_at")
+    .order("published_at", { ascending: false })
+    .limit(20);
+  if (category !== "all") query = query.eq("category", category);
+  const { data, error } = await query;
+  if (error) throw error;
+  return (data ?? [])
+    .filter((r) => r.headline && r.url && r.source && r.published_at)
+    .map((r) => ({
+      id: r.id,
+      headline: r.headline as string,
+      description: r.description,
+      source: r.source as string,
+      url: r.url as string,
+      image_url: r.image_url,
+      published_at: r.published_at as string,
+    }));
+}
+
 export function useNews(category = "all") {
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+  const [offline, setOffline] = useState(false);
 
   const load = async () => {
     setRefreshing(true);
@@ -39,10 +64,47 @@ export function useNews(category = "all") {
           Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
         },
       });
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
       const data = await resp.json();
-      setArticles(data?.articles ?? []);
+      const fetched: Article[] = data?.articles ?? [];
+      setArticles(fetched);
+      setOffline(false);
+      try {
+        localStorage.setItem(
+          OFFLINE_CACHE_KEY(category),
+          JSON.stringify({ at: Date.now(), articles: fetched }),
+        );
+      } catch {
+        /* quota — ignore */
+      }
     } catch (e) {
-      console.error("News load failed:", e);
+      console.warn("News edge fetch failed, falling back to cache:", e);
+      // 1) Try Supabase news_cache table directly
+      try {
+        const cached = await loadFromSupabaseCache(category);
+        if (cached.length > 0) {
+          setArticles(cached);
+          setOffline(true);
+          return;
+        }
+      } catch (dbErr) {
+        console.warn("Supabase cache fallback failed:", dbErr);
+      }
+      // 2) Last-resort: localStorage snapshot from a previous successful load
+      try {
+        const raw = localStorage.getItem(OFFLINE_CACHE_KEY(category));
+        if (raw) {
+          const parsed = JSON.parse(raw) as { articles: Article[] };
+          if (parsed?.articles?.length) {
+            setArticles(parsed.articles);
+            setOffline(true);
+            return;
+          }
+        }
+      } catch {
+        /* ignore */
+      }
+      setOffline(true);
     } finally {
       setLoading(false);
       setRefreshing(false);
@@ -53,11 +115,16 @@ export function useNews(category = "all") {
     setLoading(true);
     load();
     const id = window.setInterval(load, 30 * 60 * 1000); // 30 min
-    return () => window.clearInterval(id);
+    const onOnline = () => load();
+    window.addEventListener("online", onOnline);
+    return () => {
+      window.clearInterval(id);
+      window.removeEventListener("online", onOnline);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category]);
 
-  return { articles, loading, refreshing, reload: load };
+  return { articles, loading, refreshing, offline, reload: load };
 }
 
 function timeAgo(iso: string) {
