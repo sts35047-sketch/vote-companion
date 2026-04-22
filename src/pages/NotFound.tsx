@@ -1,21 +1,22 @@
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { useSEO } from "@/hooks/useSEO";
 
 const NotFound = () => {
   const location = useLocation();
+  useSEO({ title: "Page not found — First Vote", description: "The page you're looking for doesn't exist." });
 
   useEffect(() => {
-    console.error("404 Error: User attempted to access non-existent route:", location.pathname);
+    console.error("404:", location.pathname);
   }, [location.pathname]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-muted">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">404</h1>
-        <p className="mb-4 text-xl text-muted-foreground">Oops! Page not found</p>
-        <a href="/" className="text-primary underline hover:text-primary/90">
-          Return to Home
-        </a>
+    <div className="container pt-16 pb-24 text-center">
+      <div className="glass rounded-3xl p-10 max-w-md mx-auto">
+        <div className="text-7xl mb-4">🗺️</div>
+        <h1 className="text-4xl font-extrabold mb-2">404</h1>
+        <p className="text-muted-foreground mb-6">This page wandered off the ballot.</p>
+        <Link to="/" className="btn-3d">Back to home</Link>
       </div>
     </div>
   );
