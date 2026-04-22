@@ -153,11 +153,15 @@ export default function Index() {
         </div>
 
         <div className="mt-12 flex justify-center">
-          <Link to="/journey" className="btn-3d">
+          <Link to="/journey" onClick={withRipple()} className="btn-3d ripple-host">
             Begin step 1 <ArrowRight size={18} />
           </Link>
         </div>
       </section>
+
+      {/* Live election news strip */}
+      <NewsStrip />
     </div>
+    </T>
   );
 }
