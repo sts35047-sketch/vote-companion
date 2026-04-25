@@ -131,12 +131,12 @@ export default function Journey() {
       <div className="grid lg:grid-cols-[280px_1fr] gap-6">
         {/* Sidebar — desktop */}
         <aside className="hidden lg:block">
-          <div className="glass rounded-3xl p-4 sticky top-28 max-h-[calc(100vh-9rem)] overflow-y-auto">
+          <div className="glass rounded-[2rem] p-4 sticky top-28 max-h-[calc(100vh-9rem)] overflow-y-auto">
             {Object.entries(phasesGrouped).map(([phase, items]) => (
               <div key={phase} className="mb-5 last:mb-0">
                 <div className="flex items-center gap-2 px-2 mb-2">
                   <span>{PHASE_META[phase]?.emoji ?? "•"}</span>
-                  <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                  <span className="label-caps text-muted-foreground">
                     {phase}
                   </span>
                 </div>
@@ -148,15 +148,15 @@ export default function Journey() {
                       <li key={s.id}>
                         <button
                           onClick={() => setCurrent(s.step_number)}
-                          className={`w-full text-left px-3 py-2 rounded-xl text-sm flex items-center gap-3 transition-all ${
+                          className={`w-full text-left px-3 py-2.5 rounded-full text-sm flex items-center gap-3 transition-all ${
                             active
-                              ? "bg-gradient-accent text-accent-foreground shadow-glow font-semibold"
-                              : "hover:bg-foreground/5"
+                              ? "bg-primary text-primary-foreground shadow-glow font-semibold"
+                              : "hover:bg-foreground/5 text-foreground/80"
                           }`}
                         >
                           <span
-                            className={`h-6 w-6 rounded-lg flex items-center justify-center text-[11px] font-bold shrink-0 ${
-                              done ? "bg-secondary text-secondary-foreground" : active ? "bg-foreground/15" : "bg-foreground/10"
+                            className={`h-6 w-6 rounded-full flex items-center justify-center text-[11px] font-bold shrink-0 ${
+                              done ? "bg-secondary text-secondary-foreground" : active ? "bg-white/20" : "bg-foreground/10"
                             }`}
                           >
                             {done ? <CheckCircle2 size={14} /> : s.step_number}
