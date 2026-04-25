@@ -111,15 +111,15 @@ export default function Journey() {
     <T>
     <div className="container pt-6 md:pt-10">
       {/* Progress */}
-      <div className="glass rounded-3xl p-5 md:p-6 mb-6">
-        <div className="flex items-center justify-between mb-3">
+      <div className="glass rounded-[2rem] p-5 md:p-6 mb-6">
+        <div className="flex items-center justify-between mb-4">
           <div>
-            <div className="text-xs uppercase tracking-wider text-muted-foreground font-semibold">Your progress</div>
-            <div className="text-lg md:text-xl font-bold">
+            <div className="label-caps text-muted-foreground">Your progress</div>
+            <div className="font-display text-lg md:text-xl font-semibold mt-1">
               Step {current} of {total} · <span className="gradient-text">{percent}%</span>
             </div>
           </div>
-          <button onClick={finish} className="btn-ghost-3d hidden sm:inline-flex !py-2 !px-4 !min-h-0 text-sm">
+          <button onClick={finish} className="btn-ghost-3d hidden sm:inline-flex !py-2 !px-5 !min-h-0 text-sm">
             <Trophy size={16} /> Skip to finish
           </button>
         </div>
@@ -192,25 +192,25 @@ export default function Journey() {
                 dragConstraints={{ left: 0, right: 0 }}
                 dragElastic={0.18}
                 onDragEnd={onSwipe}
-                className="glass-strong rounded-3xl p-6 md:p-10 relative overflow-hidden touch-pan-y"
+                className="glass-strong rounded-[2rem] p-6 md:p-10 relative overflow-hidden touch-pan-y"
               >
                 <div
                   aria-hidden
-                  className="absolute -top-24 -right-24 h-72 w-72 rounded-full opacity-30 blur-3xl pointer-events-none"
-                  style={{ background: "var(--gradient-accent)" }}
+                  className="absolute -top-24 -right-24 h-72 w-72 rounded-full opacity-25 blur-3xl pointer-events-none"
+                  style={{ background: "var(--gradient-primary)" }}
                 />
-                <div className="flex items-center gap-2 text-xs uppercase tracking-wider font-semibold text-muted-foreground mb-3">
+                <div className="flex items-center gap-2 label-caps text-muted-foreground mb-4">
                   <span>{PHASE_META[step.phase]?.emoji}</span>
                   <span>{step.phase}</span>
                   <span>·</span>
                   <span>Step {step.step_number} of {total}</span>
                 </div>
 
-                <div className="text-7xl md:text-8xl mb-4 float-y inline-block">
+                <div className="text-7xl md:text-8xl mb-5 float-y inline-block">
                   {step.emoji ?? "✨"}
                 </div>
 
-                <h1 className="text-2xl md:text-4xl font-extrabold leading-tight mb-3">
+                <h1 className="font-display text-3xl md:text-5xl font-bold leading-[1.05] mb-4 tracking-tight text-balance">
                   {step.title}
                 </h1>
                 <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl">
@@ -218,11 +218,11 @@ export default function Journey() {
                 </p>
 
                 {step.pro_tip && (
-                  <div className="pro-tip mt-6 flex items-start gap-3">
-                    <Lightbulb className="text-accent shrink-0 mt-0.5" size={20} />
+                  <div className="pro-tip mt-6 pl-5 flex items-start gap-3">
+                    <Lightbulb className="text-secondary shrink-0 mt-0.5" size={20} />
                     <div>
-                      <div className="font-bold text-sm mb-1">Pro tip</div>
-                      <div className="text-foreground/85">{step.pro_tip}</div>
+                      <div className="label-caps mb-1.5">Pro tip</div>
+                      <div className="text-foreground/85 leading-relaxed">{step.pro_tip}</div>
                     </div>
                   </div>
                 )}
@@ -235,9 +235,9 @@ export default function Journey() {
                         key={s.id}
                         aria-label={`Go to step ${s.step_number}`}
                         onClick={() => setCurrent(s.step_number)}
-                        className={`h-2 flex-1 min-w-[10px] rounded-full transition-all ${
+                        className={`h-1.5 flex-1 min-w-[10px] rounded-full transition-all ${
                           s.step_number === current
-                            ? "bg-gradient-accent"
+                            ? "bg-primary shadow-[0_0_12px_hsl(var(--primary))]"
                             : s.step_number < current
                             ? "bg-secondary"
                             : "bg-foreground/15"
