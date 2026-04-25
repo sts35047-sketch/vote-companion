@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, Search, ThumbsDown, ThumbsUp } from "lucide-react";
+import { ChevronDown, Search, ThumbsDown, ThumbsUp, HelpCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useSEO } from "@/hooks/useSEO";
 import { CardSkeleton } from "@/components/Skeleton";
@@ -88,27 +88,32 @@ export default function FAQ() {
         initial={{ opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="text-center max-w-3xl mx-auto mb-8"
+        className="text-center max-w-3xl mx-auto mb-10"
       >
-        <h1 className="text-3xl md:text-5xl font-extrabold leading-tight">
+        <div className="flex justify-center mb-6">
+          <div className="icon-chip h-16 w-16 shadow-glow">
+            <HelpCircle size={28} className="text-primary" />
+          </div>
+        </div>
+        <h1 className="font-display text-4xl md:text-6xl font-bold leading-[1.05] tracking-tight text-balance">
           Questions You Were Too <br className="hidden sm:block" />
-          <span className="gradient-text">Embarrassed To Ask</span> 😅
+          <span className="gradient-text">Embarrassed To Ask</span>
         </h1>
-        <p className="mt-3 text-muted-foreground md:text-lg">
-          Real questions. Real answers. Zero side-eye.
+        <p className="mt-5 text-muted-foreground md:text-lg leading-relaxed max-w-xl mx-auto">
+          Democracy shouldn't be a black box. Honest answers to the questions every first-time voter wonders about — no jargon, no judgment.
         </p>
       </motion.header>
 
       {/* Search */}
       <div className="max-w-2xl mx-auto mb-8">
-        <div className="glass rounded-2xl flex items-center gap-3 px-4 py-3">
-          <Search size={18} className="text-muted-foreground shrink-0" />
+        <div className="relative">
+          <Search size={18} className="absolute left-5 top-1/2 -translate-y-1/2 text-muted-foreground" />
           <input
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search a question…"
-            className="bg-transparent outline-none flex-1 text-sm md:text-base placeholder:text-muted-foreground min-w-0"
+            className="input-pill pl-12"
           />
         </div>
       </div>
@@ -134,18 +139,18 @@ export default function FAQ() {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: Math.min(i * 0.04, 0.3), duration: 0.45 }}
-                className="glass rounded-3xl overflow-hidden"
+                className="glass rounded-[1.5rem] overflow-hidden"
               >
                 <button
                   onClick={() => setOpenId(open ? null : faq.id)}
                   className="w-full flex items-center justify-between gap-4 px-5 md:px-6 py-4 md:py-5 text-left min-h-[56px]"
                   aria-expanded={open}
                 >
-                  <span className="font-semibold text-base md:text-lg pr-2">{faq.question}</span>
+                  <span className="font-display font-semibold text-base md:text-lg pr-2 leading-snug">{faq.question}</span>
                   <motion.span
                     animate={{ rotate: open ? 180 : 0 }}
                     transition={{ duration: 0.25 }}
-                    className="h-9 w-9 rounded-xl glass flex items-center justify-center shrink-0"
+                    className="h-9 w-9 rounded-full glass flex items-center justify-center shrink-0"
                   >
                     <ChevronDown size={18} />
                   </motion.span>
@@ -173,9 +178,9 @@ export default function FAQ() {
                             <button
                               onClick={() => handleVote(faq, "up")}
                               aria-label="Helpful"
-                              className={`h-10 w-10 rounded-xl flex items-center justify-center border transition-all ${
+                              className={`h-10 w-10 rounded-full flex items-center justify-center border transition-all ${
                                 votes[faq.id] === "up"
-                                  ? "bg-gradient-accent text-accent-foreground border-transparent shadow-glow"
+                                  ? "bg-primary text-primary-foreground border-transparent shadow-glow"
                                   : "glass hover:scale-105"
                               }`}
                             >
@@ -184,7 +189,7 @@ export default function FAQ() {
                             <button
                               onClick={() => handleVote(faq, "down")}
                               aria-label="Not helpful"
-                              className={`h-10 w-10 rounded-xl flex items-center justify-center border transition-all ${
+                              className={`h-10 w-10 rounded-full flex items-center justify-center border transition-all ${
                                 votes[faq.id] === "down"
                                   ? "bg-foreground/15 border-transparent"
                                   : "glass hover:scale-105"

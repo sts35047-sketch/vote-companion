@@ -12,7 +12,7 @@ export function NewsStrip() {
     <section className="container py-12 md:py-20">
       <div className="flex items-end justify-between gap-3 mb-6">
         <div>
-          <h2 className="text-2xl md:text-3xl font-bold">
+          <h2 className="font-display text-2xl md:text-4xl font-bold tracking-tight">
             {t("Latest")} <span className="gradient-text">{t("Election News")}</span>
           </h2>
           <p className="text-sm text-muted-foreground mt-1">

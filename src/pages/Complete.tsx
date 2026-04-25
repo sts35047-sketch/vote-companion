@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import confetti from "canvas-confetti";
 import { toPng } from "html-to-image";
-import { Download, Share2, MessageCircle, Twitter, RefreshCw, Trophy } from "lucide-react";
+import { Download, Share2, Home, BadgeCheck, Trophy } from "lucide-react";
 import { useSEO } from "@/hooks/useSEO";
 import { getElapsedMinutes, isCompleted, markCompleted } from "@/lib/session";
 import { toast } from "sonner";
@@ -11,8 +11,8 @@ import { T } from "@/i18n/T";
 
 export default function Complete() {
   useSEO({
-    title: "You're Ready To Vote! 🎉 — First Vote",
-    description: "Celebrate completing the First Vote walkthrough. Share your achievement and head to the polls with confidence.",
+    title: "You're Ready To Vote! 🎉 — FirstVote",
+    description: "Celebrate completing the FirstVote walkthrough. Share your achievement and head to the polls with confidence.",
   });
 
   const cardRef = useRef<HTMLDivElement>(null);
@@ -22,14 +22,13 @@ export default function Complete() {
     if (!isCompleted()) markCompleted();
     setMinutes(getElapsedMinutes());
 
-    // Confetti cannons
     const fire = (x: number) => {
       confetti({
         particleCount: 80,
         spread: 70,
         startVelocity: 45,
         origin: { x, y: 0.7 },
-        colors: ["#FF6B35", "#F7931E", "#1B3A6B", "#2D6A4F", "#ffffff"],
+        colors: ["#1B4DFF", "#0b46f9", "#FF6B35", "#ffb59d", "#dde1fa"],
         scalar: 1.05,
       });
     };
@@ -42,7 +41,7 @@ export default function Complete() {
         particleCount: 30,
         spread: 60,
         origin: { x: Math.random(), y: Math.random() * 0.3 },
-        colors: ["#FF6B35", "#F7931E", "#1B3A6B", "#2D6A4F"],
+        colors: ["#1B4DFF", "#FF6B35", "#dde1fa"],
       });
     }, 1800);
     const stop = setTimeout(() => clearInterval(i), 6000);
@@ -58,7 +57,7 @@ export default function Complete() {
     try {
       const url = await toPng(cardRef.current, { cacheBust: true, pixelRatio: 2 });
       const link = document.createElement("a");
-      link.download = "first-vote-ready.png";
+      link.download = "firstvote-ready.png";
       link.href = url;
       link.click();
       toast.success("Saved your achievement card!");
@@ -67,24 +66,15 @@ export default function Complete() {
     }
   };
 
-  const shareText = "I'm ready for my First Vote! 🗳️ Walk through it judgment-free at";
+  const shareText = "I'm ready for my first vote 🗳️ — walked through every step on FirstVote.";
   const url = typeof window !== "undefined" ? window.location.origin : "";
 
-  const shareWhatsApp = () => {
-    window.open(`https://wa.me/?text=${encodeURIComponent(`${shareText} ${url}`)}`, "_blank");
-  };
-  const shareTwitter = () => {
-    window.open(
-      `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(url)}`,
-      "_blank"
-    );
-  };
   const shareNative = async () => {
     if (navigator.share) {
       try {
-        await navigator.share({ title: "First Vote", text: shareText, url });
+        await navigator.share({ title: "FirstVote", text: shareText, url });
       } catch {
-        // user cancelled
+        /* user cancelled */
       }
     } else {
       await navigator.clipboard.writeText(`${shareText} ${url}`);
@@ -94,109 +84,99 @@ export default function Complete() {
 
   return (
     <T>
-    <div className="container pt-6 md:pt-10 pb-12">
-      <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="text-center max-w-2xl mx-auto"
-      >
+      <div className="container max-w-2xl pt-10 md:pt-16 pb-12">
+        {/* Trophy */}
         <motion.div
-          initial={{ scale: 0.6, rotate: -12, opacity: 0 }}
-          animate={{ scale: 1, rotate: 0, opacity: 1 }}
-          transition={{ type: "spring", stiffness: 180, damping: 14, delay: 0.1 }}
-          className="mx-auto mb-6 inline-flex"
+          initial={{ scale: 0.6, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ type: "spring", stiffness: 180, damping: 14 }}
+          className="flex justify-center mb-8"
         >
-          <div className="relative">
-            <div className="absolute inset-0 bg-gradient-accent blur-2xl opacity-60 rounded-full" />
-            <div className="relative h-32 w-32 md:h-40 md:w-40 rounded-full bg-gradient-accent flex items-center justify-center shadow-glow float-y">
-              <Trophy className="text-accent-foreground drop-shadow" size={64} />
+          <div className="relative h-[180px] w-[180px] md:h-[220px] md:w-[220px]">
+            <div className="absolute inset-0 rounded-full bg-primary/30 blur-3xl" />
+            <div className="relative h-full w-full rounded-full bg-gradient-to-br from-amber-200 via-yellow-300 to-amber-500 flex items-center justify-center shadow-[0_0_60px_-10px_hsl(45_100%_60%/0.5)] border border-white/20 float-y">
+              <Trophy size={88} className="text-amber-900 drop-shadow" />
             </div>
           </div>
         </motion.div>
 
-        <h1 className="text-4xl md:text-6xl font-extrabold leading-tight">
-          You're Ready To <span className="gradient-text">Vote!</span> 🎉
-        </h1>
-        <p className="mt-4 text-muted-foreground md:text-lg">
-          You walked through every step. Take a breath — you've got this.
-        </p>
-      </motion.section>
+        {/* Headline */}
+        <motion.h1
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+          className="font-display text-4xl md:text-6xl font-bold text-center leading-[1.05] mb-10 text-balance"
+        >
+          You're Ready To Vote! <span className="inline-block">🎉</span>
+        </motion.h1>
 
-      {/* Stats */}
-      <div className="mt-8 grid sm:grid-cols-3 gap-4 max-w-3xl mx-auto">
-        {[
-          { k: "13", v: "Steps completed" },
-          { k: `${minutes}`, v: minutes === 1 ? "Minute well spent" : "Minutes well spent" },
-          { k: "100%", v: "Ready" },
-        ].map((s) => (
-          <div key={s.v} className="glass rounded-3xl p-5 text-center">
-            <div className="text-4xl font-extrabold gradient-text mb-1">{s.k}</div>
-            <div className="text-xs text-muted-foreground font-medium">{s.v}</div>
-          </div>
-        ))}
-      </div>
-
-      {/* Shareable card */}
-      <div className="mt-10 max-w-md mx-auto">
-        <div
+        {/* Shareable verified card with gradient border */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.35, duration: 0.6 }}
           ref={cardRef}
-          className="rounded-3xl p-8 text-center relative overflow-hidden"
+          className="relative rounded-[2rem] p-[1px] mb-10 overflow-hidden"
           style={{
-            background: "linear-gradient(135deg, hsl(215 58% 26%), hsl(153 41% 30%))",
-            color: "white",
-            boxShadow: "0 30px 80px -20px hsl(215 58% 20% / 0.6)",
+            background: "linear-gradient(135deg, hsl(227 100% 60%), hsl(232 95% 30%))",
+            boxShadow: "0 20px 60px -10px hsl(227 100% 50% / 0.45)",
           }}
         >
-          <div
-            aria-hidden
-            className="absolute -top-16 -right-16 h-56 w-56 rounded-full opacity-50 blur-2xl"
-            style={{ background: "linear-gradient(135deg, #FF6B35, #F7931E)" }}
-          />
-          <div className="relative">
-            <div className="text-6xl mb-3">🗳️</div>
-            <div className="text-xs uppercase tracking-[0.2em] opacity-80 mb-2">First Vote · Achievement</div>
-            <h2 className="text-2xl font-extrabold leading-tight">
-              I'm ready for my <br /> <span style={{
-                background: "linear-gradient(135deg, #FF6B35, #F7931E)",
-                WebkitBackgroundClip: "text",
-                backgroundClip: "text",
-                color: "transparent",
-              }}>First Vote!</span>
-            </h2>
-            <p className="mt-3 text-sm opacity-85">Completed all 13 steps · {minutes} min</p>
-            <div className="mt-5 inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold"
-                 style={{ background: "rgba(255,255,255,0.15)", border: "1px solid rgba(255,255,255,0.25)" }}>
-              firstvote.app
+          <div className="rounded-[calc(2rem-1px)] p-7 md:p-8 bg-[hsl(224_35%_12%/0.65)] backdrop-blur-2xl border-t border-l border-white/15">
+            {/* Verified row */}
+            <div className="flex items-center gap-4 mb-7">
+              <div className="icon-chip h-12 w-12 shrink-0">
+                <BadgeCheck size={22} className="text-white" />
+              </div>
+              <div className="min-w-0">
+                <h3 className="font-display text-lg md:text-xl font-semibold text-white">
+                  Voter Status: Verified
+                </h3>
+                <p className="text-sm text-[hsl(226_78%_88%/0.75)]">
+                  Secure Civic Identity Linked
+                </p>
+              </div>
+            </div>
+
+            {/* Stats grid */}
+            <div className="grid grid-cols-2 gap-3">
+              <div className="rounded-xl p-4 bg-white/5 border border-white/10">
+                <div className="label-caps text-[hsl(226_78%_88%/0.6)] mb-2">Steps</div>
+                <div className="font-display text-xl font-semibold text-white">
+                  13 Completed
+                </div>
+              </div>
+              <div className="rounded-xl p-4 bg-white/5 border border-white/10">
+                <div className="label-caps text-[hsl(226_78%_88%/0.6)] mb-2">Time</div>
+                <div className="font-display text-xl font-semibold text-white">
+                  {minutes} min
+                </div>
+              </div>
+            </div>
+
+            {/* Footer chip */}
+            <div className="mt-6 flex justify-center">
+              <span className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold bg-white/10 border border-white/15 text-white/80">
+                firstvote.app
+              </span>
             </div>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="mt-5 grid grid-cols-2 gap-3">
-          <button onClick={downloadCard} className="btn-3d">
-            <Download size={16} /> Download
+        {/* CTAs */}
+        <div className="flex flex-col sm:flex-row gap-3 mb-4">
+          <button onClick={shareNative} className="btn-orange flex-1 ripple-host">
+            <Share2 size={18} /> Share with a friend
           </button>
-          <button onClick={shareNative} className="btn-ghost-3d">
-            <Share2 size={16} /> Share
-          </button>
-          <button onClick={shareWhatsApp} className="btn-ghost-3d">
-            <MessageCircle size={16} /> WhatsApp
-          </button>
-          <button onClick={shareTwitter} className="btn-ghost-3d">
-            <Twitter size={16} /> Twitter
+          <button onClick={downloadCard} className="btn-ghost-3d flex-1 ripple-host">
+            <Download size={18} /> Download card
           </button>
         </div>
 
-        <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
-          <Link to="/journey" className="btn-ghost-3d w-full sm:w-auto">
-            <RefreshCw size={16} /> Revisit a step
-          </Link>
-          <Link to="/faq" className="btn-ghost-3d w-full sm:w-auto">
-            Browse FAQ
-          </Link>
-        </div>
+        <Link to="/" className="btn-ghost-3d w-full ripple-host">
+          <Home size={18} /> Back to Home
+        </Link>
       </div>
-    </div>
     </T>
   );
 }
