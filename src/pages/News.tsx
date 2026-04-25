@@ -172,7 +172,7 @@ export function NewsCard({ a, t }: { a: Article; t: (s: string) => string }) {
         <h3 className="font-bold text-sm leading-snug line-clamp-2 mb-2">
           {t(a.headline)}
         </h3>
-        <span className="inline-flex items-center gap-1 text-xs font-semibold text-accent">
+        <span className="inline-flex items-center gap-1 text-xs font-semibold text-primary">
           {t("Read more")} <ExternalLink size={12} />
         </span>
       </div>
@@ -238,9 +238,9 @@ export default function News() {
           <button
             key={c.key}
             onClick={() => setCategory(c.key)}
-            className={`px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap transition-all ${
+            className={`px-5 py-2 rounded-full text-sm font-semibold whitespace-nowrap transition-all ${
               category === c.key
-                ? "bg-gradient-accent text-accent-foreground shadow-glow"
+                ? "bg-primary text-primary-foreground shadow-glow"
                 : "glass hover:bg-foreground/10"
             }`}
           >
