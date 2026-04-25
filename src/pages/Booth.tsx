@@ -84,11 +84,11 @@ export default function Booth() {
           disableDefaultUI: true,
           zoomControl: true,
           styles: [
-            { elementType: "geometry", stylers: [{ color: "#1a2236" }] },
-            { elementType: "labels.text.stroke", stylers: [{ color: "#1a2236" }] },
-            { elementType: "labels.text.fill", stylers: [{ color: "#9aa6b8" }] },
-            { featureType: "water", stylers: [{ color: "#0c1322" }] },
-            { featureType: "road", stylers: [{ color: "#2a3552" }] },
+            { elementType: "geometry", stylers: [{ color: "#191f31" }] },
+            { elementType: "labels.text.stroke", stylers: [{ color: "#0d1324" }] },
+            { elementType: "labels.text.fill", stylers: [{ color: "#c4c5d9" }] },
+            { featureType: "water", stylers: [{ color: "#070d1e" }] },
+            { featureType: "road", stylers: [{ color: "#2e3447" }] },
             { featureType: "poi", stylers: [{ visibility: "off" }] },
           ],
         });
@@ -117,7 +117,7 @@ export default function Booth() {
         icon: {
           path: g.maps.SymbolPath.CIRCLE,
           scale: 9,
-          fillColor: "#FF6B35",
+          fillColor: "#1B4DFF",
           fillOpacity: 1,
           strokeColor: "#fff",
           strokeWeight: 3,
@@ -262,35 +262,35 @@ export default function Booth() {
   return (
     <div className="container py-8 md:py-12">
       <div className="mb-6">
-        <h1 className="font-display text-3xl md:text-5xl font-extrabold leading-tight">
+        <h1 className="font-display text-4xl md:text-5xl font-bold leading-tight tracking-tight text-balance">
           {t("Find Your")} <span className="gradient-text">{t("Polling Booth")}</span>
         </h1>
-        <p className="text-muted-foreground mt-2">
+        <p className="text-muted-foreground mt-3 md:text-lg">
           {t("Tap to share your location, or type any address / pincode.")}
         </p>
       </div>
 
-      <div className="glass-strong rounded-3xl p-3 md:p-4 mb-4 flex flex-col sm:flex-row gap-2">
+      <div className="glass-strong rounded-[2rem] p-3 md:p-4 mb-4 flex flex-col sm:flex-row gap-2">
         <button
           onClick={useMyLocation}
           disabled={loading}
-          className="btn-3d ripple-host !min-h-[48px] sm:flex-shrink-0"
+          className="btn-3d ripple-host sm:flex-shrink-0"
         >
           {loading ? <Loader2 className="animate-spin" size={18} /> : <Navigation size={18} />}
           {t("Use my location")}
         </button>
         <div className="flex-1 flex gap-2">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={16} />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" size={16} />
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && searchAddress()}
               placeholder={t("Address, city or pincode")}
-              className="w-full glass rounded-xl pl-9 pr-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
+              className="input-pill pl-11"
             />
           </div>
-          <button onClick={searchAddress} className="btn-ghost-3d !py-2 !min-h-[48px]">
+          <button onClick={searchAddress} className="btn-ghost-3d">
             {t("Search")}
           </button>
         </div>
@@ -324,7 +324,7 @@ export default function Booth() {
                 <li key={b.placeId} className="glass rounded-2xl p-3">
                   <div className="flex items-start justify-between gap-2 mb-1">
                     <div className="flex items-start gap-2 min-w-0">
-                      <span className="inline-flex items-center justify-center h-6 w-6 rounded-full bg-gradient-accent text-accent-foreground text-xs font-bold shrink-0">
+                      <span className="inline-flex items-center justify-center h-6 w-6 rounded-full bg-primary text-primary-foreground text-xs font-bold shrink-0">
                         {i + 1}
                       </span>
                       <p className="font-semibold text-sm leading-tight truncate">
@@ -350,7 +350,7 @@ export default function Booth() {
                     }
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-xs font-semibold text-accent mt-2 ml-8"
+                    className="inline-flex items-center gap-1 text-xs font-semibold text-primary mt-2 ml-8"
                   >
                     {t("Get directions")} →
                   </a>
